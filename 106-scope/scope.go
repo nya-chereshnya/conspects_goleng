@@ -17,21 +17,21 @@ type unexportedStruct struct {
 }
 
 func main() {
-    // Local variable to main function
-    localVar := "I'm local to main"
+  // Local variable to main function
+  localVar := "I'm local to main"
 
-    {
-        // Block scope variable
-        blockVar := "I'm local to this block"
-        fmt.Println(blockVar)
-        fmt.Println(localVar)
-    }
-
-    // blockVar is not accessible here, uncommenting the next line would raise an error
-    // fmt.Println(blockVar)
-
+  {
+    // Block scope variable
+    blockVar := "I'm local to this block"
+    fmt.Println(blockVar)
     fmt.Println(localVar)
-    accessGlobal()
+  }
+
+  // blockVar is not accessible here, uncommenting the next line would raise an error
+  // fmt.Println(blockVar)
+
+  fmt.Println(localVar)
+  accessGlobal()
 
   // Accessing the exported struct and its fields
 	expStruct := ExportedStruct{"Visible to everyone", "Hidden from other packages"}
