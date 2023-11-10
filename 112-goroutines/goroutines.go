@@ -6,41 +6,27 @@ import (
 	"time"
 )
 
-// simpleGoroutine starts a goroutine that prints a number.
-func simpleGoroutine(number int, wg *sync.WaitGroup) {
-	defer wg.Done() // Notify the WaitGroup that this goroutine is done
-	fmt.Printf("Number: %d\n", number)
+// A simple function that a goroutine will run
+func printCounts(label string, count int, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for i := 0; i < count; i++ {
+		time.Sleep(1 * time.Second)
+		fmt.Printf("%s: %d\n", label, i)
+	}
 }
 
 func main() {
 	var wg sync.WaitGroup
 
-	// Start multiple goroutines.
-	for i := 0; i < 10; i++ {
-		wg.Add(1) // Increment the WaitGroup counter
-		go simpleGoroutine(i, &wg)
-	}
+	// Start a goroutine for printCounts
+	wg.Add(1)
+	go printCounts("goroutine", 5, &wg)
 
-	wg.Wait() // Wait for all goroutines to finish
+	// Run printCounts in the main goroutine as well
+	printCounts("main", 3, &wg)
 
-	fmt.Println("All goroutines completed.")
-}
-
-// This function demonstrates sending and receiving data through a channel.
-func channelDemo() {
-	ch := make(chan string)
-
-	go func() {
-		time.Sleep(2 * time.Second)
-		ch <- "Data from goroutine" // Send data to the channel
-	}()
-
-	data := <-ch // Receive data from the channel
-	fmt.Println(data)
-}
-
-// Call channelDemo to see channels in action
-func init() {
-	go channelDemo()
+	// Wait for the goroutine to finish
+	wg.Wait()
+	fmt.Println("Finished all goroutines.")
 }
 
