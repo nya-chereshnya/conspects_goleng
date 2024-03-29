@@ -17,26 +17,26 @@ type unexportedStruct struct {
 }
 
 func main() {
-  // Local variable to main function
-  localVar := "I'm local to main"
+	// Local variable to main function
+	localVar := "I'm local to main"
 
-  {
-    // Block scope variable
-    blockVar := "I'm local to this block"
-    fmt.Println(blockVar)
-    fmt.Println(localVar)
-  }
+	{
+		// Block scope variable
+		blockVar := "I'm local to this block"
+		fmt.Println(blockVar)
+		fmt.Println(localVar)
+	}
 
-  // blockVar is not accessible here, uncommenting the next line would raise an error
-  // fmt.Println(blockVar)
+	// blockVar is not accessible here, uncommenting the next line would raise an error
+	// fmt.println(blockVar)
 
-  fmt.Println(localVar)
-  accessGlobal()
+	fmt.Println(localVar)
+	accessGlobal()
 
-  // Accessing the exported struct and its fields
+	// Accessing the exported struct and its fields
 	expStruct := ExportedStruct{"Visible to everyone", "Hidden from other packages"}
 	fmt.Println(expStruct.ExportedField)
-	// fmt.Println(expStruct.unexportedField) // This line would raise an error if uncommented
+	// fmt.println(expStruct.unexportedField) // This line would raise an error if uncommented
 
 	// Accessing the unexported struct within the same package
 	unexpStruct := unexportedStruct{"I am only visible within the package"}
@@ -44,7 +44,6 @@ func main() {
 }
 
 func accessGlobal() {
-    // access the global variable
-    fmt.Println(globalVar)
+	// access the global variable
+	fmt.Println(globalVar)
 }
-
